@@ -11,7 +11,7 @@ gcloud compute instances create perception-ml-playground \
     --image-family ubuntu-2204-lts \
     --image-project ubuntu-os-cloud  \
     --maintenance-policy TERMINATE --restart-on-failure \
-    [--preemptible]
+    --preemptible
 
 
 #example for Ubuntu 16.04 VM with 1 NVIDIA K80 GPU and 2 vCPUs in the us-east1-d zone.
@@ -25,3 +25,42 @@ gcloud compute instances create gpu-instance-1 \
     --image-project ubuntu-os-cloud \
     --maintenance-policy TERMINATE --restart-on-failure
     '''
+
+    '''
+    POST https://compute.googleapis.com/compute/v1/projects/PROJECT_ID/zones/us-central1-a/instances
+{
+  "machineType": "projects/PROJECT_ID/zones/us-central1-a/machineTypes/n2-standard-16",
+  "disks":
+  [
+    {
+      "type": "PERSISTENT",
+      "initializeParams":
+      {
+        "diskSizeGb": "50GB",
+        "sourceImage": "projects/IMAGE_PROJECT/global/images/family/Ubuntu 22.04 LTS"
+      },
+      "boot": true
+    }
+  ],
+  "name": "einride-perception-playground",
+  "networkInterfaces":
+  [
+    {
+      "network": "projects/PROJECT_ID/global/networks/NETWORK"
+    }
+  ],
+  "guestAccelerators":
+  [
+    {
+      "acceleratorCount": 1,
+      "acceleratorType": "projects/PROJECT_ID/zones/us-central1-a/acceleratorTypes/nvidia-tesla-v100"
+    }
+  ],
+  "scheduling":
+  {
+    "onHostMaintenance": "terminate",
+    "automaticRestart": true,
+    ["preemptible": true]
+  },
+}
+'''
