@@ -2,7 +2,7 @@
 echo "This specifically installs the cuDNN8.8  and cuda-drivers but not the cudatoolkit though"
 # 11.7 and 11.7 are compatible mostly with CUDA11.7 only difference is that 11.7 has static linking
 # refer the cuDNN documentation here: https://docs.nvidia.com/deeplearning/cudnn/support-matrix/index.html
-selected=118 #dentoes 11.7
+selected=117 #dentoes 11.7
 VER_11_7=117 #denotes CUDA11.7 and cuDNN 8.5
 VER_11_8=118 #denotes CUDA11.8 and cuDNN 8.8.1
 
